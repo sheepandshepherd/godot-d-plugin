@@ -1,0 +1,14 @@
+[general]
+
+singleton=false
+load_once=false
+reloadable=false
+symbol_prefix="godot_d_importer"
+
+[entry]
+Windows="res://addons/godot-d-importer/godot-d-importer.dll"
+X11="res://addons/godot-d-importer/libgodot-d-importer.so"
+
+[dependencies]
+Windows=[]
+X11=[]
