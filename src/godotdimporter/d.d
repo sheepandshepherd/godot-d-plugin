@@ -170,13 +170,13 @@ class GDVisitor : ASTVisitor
 					CharString u = globalDir.utf8; // FIXME: dirEntries don't work with wider strings...
 					foreach(de; dirEntries(u.data, SpanMode.shallow))
 					{
-						if(de.name.filenameCmp("dub.json")==0 || de.name.filenameCmp("dub.sdl")==0)
+						if(!options[String("ignoreGdnlibLibraries")].as!bool
+							&& de.name.extension.toLower == ".gdnlib")
 						{
 							lib = subDir~String(de.name);
 							break UpwardsPathSearch;
 						}
-						if(!options[String("ignoreGdnlibLibraries")].as!bool
-							&& de.name.extension.toLower == ".gdnlib")
+						if(de.name.filenameCmp("dub.json")==0 || de.name.filenameCmp("dub.sdl")==0)
 						{
 							lib = subDir~String(de.name);
 							break UpwardsPathSearch;
