@@ -4,15 +4,15 @@
 		"sheepandshepherd"
 	],
 	"dependencies": {
-		"godot-d": "~master",
-		"dsymbol": "~>0.3.0",
-		"libdparse": "~>0.8.0-alpha.5",
-		"dub": "~>1.8.0"
+		"godot-d": "~>0.0.5",
+		"dsymbol": "~>0.3.1",
+		"libdparse": "~>0.8.1",
+		"dub": "~>1.8.1"
 	},
 	"description": "Godot import plugin to simplify Godot-D scripting",
 	"copyright": "Copyright © 2018, sheepandshepherd",
 	"license": "MIT",
 	
 	"targetType": "dynamicLibrary",
-	"targetPath": "godot-d-importer",
+	"targetPath": ".",
 }
