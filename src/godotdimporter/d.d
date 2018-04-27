@@ -173,12 +173,12 @@ class GDVisitor : ASTVisitor
 						if(!options[String("ignoreGdnlibLibraries")].as!bool
 							&& de.name.extension.toLower == ".gdnlib")
 						{
-							lib = subDir~String(de.name);
+							lib = subDir~String(de.name.baseName);
 							break UpwardsPathSearch;
 						}
 						if(de.name.filenameCmp("dub.json")==0 || de.name.filenameCmp("dub.sdl")==0)
 						{
-							lib = subDir~String(de.name);
+							lib = subDir~String(de.name.baseName);
 							break UpwardsPathSearch;
 						}
 					}
