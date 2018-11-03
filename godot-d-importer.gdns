@@ -4,6 +4,6 @@
 
 [resource]
 
-class_name = "GodotDImporterPlugin"
+class_name = "godotdimporter.GodotDImporterPlugin"
 library = ExtResource( 1 )
 

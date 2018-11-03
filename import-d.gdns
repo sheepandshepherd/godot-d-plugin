@@ -4,6 +4,6 @@
 
 [resource]
 
-class_name = "ImportD"
+class_name = "godotdimporter.d.ImportD"
 library = ExtResource( 1 )
 
