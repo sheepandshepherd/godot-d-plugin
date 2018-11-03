@@ -5,6 +5,8 @@ import std.string;
 import std.range;
 import std.meta;
 import std.typecons : scoped;
+import std.algorithm.iteration : joiner, map;
+import std.conv : text;
 
 import godot;
 import godot.editorimportplugin;
@@ -37,17 +39,17 @@ library = ExtResource( 1 )
 class GDVisitor : ASTVisitor
 {
 	// GC danger zone... not sure if scoped!GDVisitor ensures GC sees these on stack
-	string moduleName; // last portion only
-	string found; // class matching moduleName
-	string[] all; // all classes
+	string[] moduleName;
+	string found; // class matching moduleName (fully qualified name)
+	string[] all; // all classes (fully qualified names)
 	string overrideName; // manually set the class; TODO: not implemented yet
 	size_t[2][] overrideAttributeRanges;
 
 	alias visit = ASTVisitor.visit;
 	override void visit(in ModuleDeclaration m)
 	{
-		moduleName = m.moduleName.identifiers.back.text;
-		debug print("D: parsed module ", moduleName);
+		moduleName = m.moduleName.identifiers.map!(t => cast(string)t.text).array;
+		debug print("D: parsed module ", moduleName.back);
 		super.visit(m);
 	}
 
@@ -65,9 +67,9 @@ class GDVisitor : ASTVisitor
 
 	override void visit(in ClassDeclaration c)
 	{
-		auto name = c.name.text;
+		auto name = (moduleName ~ c.name.text).joiner(".").text;
 		all ~= name;
-		if(name.toLower == moduleName || name.camelToSnake == moduleName)
+		if(name.toLower == moduleName.back || name.camelToSnake == moduleName.back)
 		{
 			if(!found.empty) throw new Exception("Multiple classes matching the module found");
 			found = name;
@@ -221,7 +223,7 @@ class GDVisitor : ASTVisitor
 
 				auto visitor = scoped!GDVisitor;
 				// for root modules
-				visitor.moduleName = sourceFile.utf8.data.idup.baseName.stripExtension;
+				visitor.moduleName = [sourceFile.utf8.data.idup.baseName.stripExtension];
 
 				m.accept(visitor);
 
