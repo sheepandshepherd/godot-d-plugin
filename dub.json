@@ -4,10 +4,11 @@
 		"sheepandshepherd"
 	],
 	"dependencies": {
-		"godot-d": "~>0.1.0",
-		"dsymbol": "~>0.4.8",
-		"libdparse": "~>0.9.10",
-		"dub": "~>1.12.0"
+		"emsi_containers": "~>0.8.0-alpha.11",
+		"godot-d": "~>0.1.2",
+		"dsymbol": "~>0.6.0",
+		"libdparse": "~>0.11.2",
+		"dub": "~>1.13.0"
 	},
 	"description": "Godot import plugin to simplify Godot-D scripting",
 	"copyright": "Copyright © 2018, sheepandshepherd",

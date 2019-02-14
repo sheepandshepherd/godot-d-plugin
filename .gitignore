@@ -1,6 +1,5 @@
 .directory
 .dub
-dub.selections.json
 .settings
 dub.userprefs
 docs.json
@@ -10,5 +9,6 @@ __dummy.html
 *.a
 *.lib
 *.exe
+*.so
 __test__*__
 
