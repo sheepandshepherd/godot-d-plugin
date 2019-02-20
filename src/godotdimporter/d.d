@@ -69,7 +69,7 @@ class GDVisitor : ASTVisitor
 	{
 		auto name = (moduleName ~ c.name.text).joiner(".").text;
 		all ~= name;
-		if(name.toLower == moduleName.back || name.camelToSnake == moduleName.back)
+		if(c.name.text.toLower == moduleName.back || c.name.text.camelToSnake == moduleName.back)
 		{
 			if(!found.empty) throw new Exception("Multiple classes matching the module found");
 			found = name;
