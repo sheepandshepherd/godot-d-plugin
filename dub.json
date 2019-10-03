@@ -5,7 +5,7 @@
 	],
 	"dependencies": {
 		"emsi_containers": "~>0.8.0-alpha.11",
-		"godot-d": "~>0.1.2",
+		"godot-d": "~>0.1.4",
 		"dsymbol": "~>0.6.0",
 		"libdparse": "~>0.11.2",
 		"dub": "~>1.13.0"
@@ -13,6 +13,10 @@
 	"description": "Godot import plugin to simplify Godot-D scripting",
 	"copyright": "Copyright © 2018, sheepandshepherd",
 	"license": "MIT",
+	
+	"dflags-windows-dmd": ["-defaultlib=phobos.lib"],
+	"dflags-linux-dmd": ["-defaultlib=libphobos2.a"],
+	"dflags-ldc": ["-link-defaultlib-shared=false"],
 	
 	"targetType": "dynamicLibrary",
 	"targetPath": ".",
