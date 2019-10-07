@@ -4,7 +4,7 @@
 		"dsymbol": "0.6.4",
 		"dub": "1.13.0",
 		"emsi_containers": "0.8.0-alpha.17",
-		"godot-d": "0.1.4",
+		"godot-d": "0.1.5",
 		"libdparse": "0.11.6",
 		"stdx-allocator": "2.77.5"
 	}

@@ -19,11 +19,7 @@ import godot.editorfilesystem;
 
 import godot.d.string;
 
-import dparse.parser, dparse.lexer;
-import dparse.ast;
-import dparse.rollback_allocator;
-
-import dsymbol.conversion : parseModuleSimple;
+import classfinder;
 
 /// $(D format) with GDNativeLibrary path followed by class name
 enum string gdnsFormat = `[gd_resource type="NativeScript" load_steps=2 format=2]
@@ -35,50 +31,6 @@ enum string gdnsFormat = `[gd_resource type="NativeScript" load_steps=2 format=2
 class_name = "%s"
 library = ExtResource( 1 )
 `;
-
-class GDVisitor : ASTVisitor
-{
-	// GC danger zone... not sure if scoped!GDVisitor ensures GC sees these on stack
-	string[] moduleName;
-	string found; // class matching moduleName (fully qualified name)
-	string[] all; // all classes (fully qualified names)
-	string overrideName; // manually set the class; TODO: not implemented yet
-	size_t[2][] overrideAttributeRanges;
-
-	alias visit = ASTVisitor.visit;
-	override void visit(in ModuleDeclaration m)
-	{
-		moduleName = m.moduleName.identifiers.map!(t => cast(string)t.text).array;
-		debug print("D: parsed module ", moduleName.back);
-		super.visit(m);
-	}
-
-	// TODO: not implemented yet
-	version(none) override void visit(in AtAttribute a)
-	{
-		import std.algorithm.searching : canFind;
-
-		if(a.argumentList.items.canFind!(e => (cast(PrimaryExpression)e) && (cast(PrimaryExpression)e).primary.text == "MainClass"))
-		{
-			debug print("Found MainClass from ", a.startLocation, " to ", a.endLocation);
-			overrideAttributeRanges ~= [a.startLocation, a.endLocation];
-		}
-	}
-
-	override void visit(in ClassDeclaration c)
-	{
-		auto name = (moduleName ~ c.name.text).joiner(".").text;
-		all ~= name;
-		if(c.name.text.toLower == moduleName.back || c.name.text.camelToSnake == moduleName.back)
-		{
-			if(!found.empty) throw new Exception("Multiple classes matching the module found");
-			found = name;
-		}
-
-		debug print("D: Parsed class ", name);
-		super.visit(c);
-	}
-}
 
 @Tool class ImportD : GodotScript!EditorImportPlugin
 {
@@ -190,7 +142,7 @@ class GDVisitor : ASTVisitor
 			}
 			if(lib.empty) throw new Exception("Couldn't find a library. Maybe override it in Import panel?");
 
-			auto className = options[String("overrideAutodetectedValues/className")].as!String;
+			String className = options[String("overrideAutodetectedValues/className")].as!String;
 			if(!className.empty)
 			{
 				name = className;
@@ -202,33 +154,20 @@ class GDVisitor : ASTVisitor
 				scope(exit) f.close();
 				if(err != GodotError.ok) return err;
 
-				RollbackAllocator rba;
-				StringCache sc = StringCache(StringCache.defaultBucketCount);
-
 				String realPathStr = ProjectSettings.globalizePath(sourceFile);
 				CharString realPath = realPathStr.utf8;
-				ubyte[] bytes = cast(ubyte[])std.file.read(realPath.data);
-
-				LexerConfig lcfg;
-				lcfg.fileName = realPath.data;
-				auto tokens = getTokensForParser(bytes, lcfg, &sc);
-
-				Module m;
-				try m = parseModuleSimple(tokens, realPath.data, &rba);
+				ClassesInFile classData;
+				try
+				{
+					classData = parse(realPath.data);
+				}
 				catch(Exception e)
 				{
 					print("Parse error in ", sourceFile, ":\n", e.msg);
 					return GodotError.parseError;
 				}
-
-				auto visitor = scoped!GDVisitor;
-				// for root modules
-				visitor.moduleName = [sourceFile.utf8.data.idup.baseName.stripExtension];
-
-				m.accept(visitor);
-
-				if(!visitor.found.empty) name = String(visitor.found);
-				else if(visitor.all.length == 1) name = String(visitor.all[0]);
+				if(!classData.mainClass.empty) name = String(classData.mainClass);
+				else if(classData.classes.length == 1) name = String(classData.classes[0]);
 				// else: nothing; classless file is acceptable
 			}
 
