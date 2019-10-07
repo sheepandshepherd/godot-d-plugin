@@ -1,7 +1,7 @@
 [general]
 
 singleton=false
-load_once=false
+load_once=true
 reloadable=false
 symbol_prefix="godot_d_importer"
 
