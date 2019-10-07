@@ -1,11 +1,11 @@
 {
 	"fileVersion": 1,
 	"versions": {
-		"dsymbol": "0.6.0",
+		"dsymbol": "0.6.4",
 		"dub": "1.13.0",
-		"emsi_containers": "0.8.0-alpha.11",
-		"godot-d": "0.1.2",
-		"libdparse": "0.11.2",
+		"emsi_containers": "0.8.0-alpha.17",
+		"godot-d": "0.1.4",
+		"libdparse": "0.11.6",
 		"stdx-allocator": "2.77.5"
 	}
 }
