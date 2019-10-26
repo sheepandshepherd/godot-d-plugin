@@ -4,12 +4,12 @@
 		"sheepandshepherd"
 	],
 	"dependencies": {
-		"emsi_containers": "~>0.8.0-alpha.11",
-		"godot-d": "~>0.1.5",
-		"godot-d:class-finder": "~>0.1.5",
-		"dsymbol": "~>0.6.0",
-		"libdparse": "~>0.11.2",
-		"dub": "~>1.13.0"
+		"emsi_containers": "~>0.8.0-alpha.19",
+		"godot-d": { "path": "godot-d" },
+		"godot-d:class-finder": "*",
+		"dsymbol": "~>0.9.0",
+		"libdparse": "~>0.13.1",
+		"dub": "~>1.17.0"
 	},
 	"description": "Godot import plugin to simplify Godot-D scripting",
 	"copyright": "Copyright © 2018, sheepandshepherd",

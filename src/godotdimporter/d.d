@@ -17,7 +17,8 @@ import godot.projectsettings;
 import godot.nativescript, godot.gdnativelibrary;
 import godot.editorfilesystem;
 
-import godot.d.string;
+import godotutil.string;
+import godotutil.classes;
 
 import classfinder;
 
@@ -156,7 +157,7 @@ library = ExtResource( 1 )
 
 				String realPathStr = ProjectSettings.globalizePath(sourceFile);
 				CharString realPath = realPathStr.utf8;
-				ClassesInFile classData;
+				FileInfo classData;
 				try
 				{
 					classData = parse(realPath.data);
