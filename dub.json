@@ -21,4 +21,6 @@
 	
 	"targetType": "dynamicLibrary",
 	"targetPath": ".",
+
+	"preGenerateCommands": [ "dub run godot-d:pregenerate" ]
 }
