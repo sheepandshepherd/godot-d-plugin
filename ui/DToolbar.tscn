@@ -1,7 +1,6 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://addons/godot-d-importer/godot-d-importer.gdnlib" type="GDNativeLibrary" id=1]
-[ext_resource path="res://addons/godot-d-importer/ui/icons/icon_dub_package.svg" type="Texture" id=2]
 [ext_resource path="res://addons/godot-d-importer/ui/icons/icon_status_warning.svg" type="Texture" id=3]
 [ext_resource path="res://addons/godot-d-importer/ui/icons/icon_play.svg" type="Texture" id=4]
 [ext_resource path="res://addons/godot-d-importer/ui/icons/icon_tools.svg" type="Texture" id=5]
@@ -40,17 +39,16 @@ switch_on_hover = true
 "DToolbar project exists",
 ]]
 margin_left = 40.0
-margin_right = 97.0
+margin_right = 81.0
 margin_bottom = 25.0
 hint_tooltip = "Select D project"
-icon = ExtResource( 2 )
 flat = true
 
 [node name="dubProject" type="Button" parent="." groups=[
 "DToolbar project exists",
 ]]
-margin_left = 101.0
-margin_right = 129.0
+margin_left = 85.0
+margin_right = 113.0
 margin_bottom = 25.0
 hint_tooltip = "DUB project settings"
 icon = ExtResource( 5 )
@@ -59,8 +57,8 @@ flat = true
 [node name="buildStatus" type="MenuButton" parent="." groups=[
 "DToolbar project exists",
 ]]
-margin_left = 133.0
-margin_right = 161.0
+margin_left = 117.0
+margin_right = 145.0
 margin_bottom = 25.0
 hint_tooltip = "Build status"
 toggle_mode = false
@@ -70,11 +68,11 @@ switch_on_hover = true
 [node name="build" type="Button" parent="." groups=[
 "DToolbar project exists",
 ]]
-margin_left = 165.0
-margin_right = 228.0
+margin_left = 149.0
+margin_right = 212.0
 margin_bottom = 25.0
 hint_tooltip = "Build project"
 text = "Build"
 icon = ExtResource( 4 )
 flat = true
-[connection signal="pressed" from="build" to="." method="new_project"]
+[connection signal="item_selected" from="selectProject" to="." method="_select_project"]
