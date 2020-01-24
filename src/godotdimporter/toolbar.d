@@ -87,6 +87,34 @@ import godot.control.all;
 		}
 	}
 
+	@Method _buildPressed()
+	{
+		if(!selected.length) return;
+
+		import std.process;
+		import std.string : join;
+		import std.path;
+		import godot.projectsettings;
+
+		string[] cmd = ["dub build"];
+
+		Config config = Config.none;
+
+		CharString workDir = ProjectSettings.globalizePath(selected).utf8;
+		print("D: Building ", selected);
+
+		// FIXME: async with spawnShell and wait
+		auto result = executeShell(cmd.join(), null, config, size_t.max, workDir.data.dirName);
+		// FIXME: output to D console, possibly one per build job
+		// FIXME: result.output loses its formatting
+		print(result.output);
+		writeln(result.output);
+		if(result.status == 0)
+		{
+			// TODO: update build status and cache hashes of the files from `dub describe`
+		}
+	}
+
 	@Method ready()
 	{
 		d.addFontOverride(gs!"font", getFont(gs!"bold", gs!"EditorFonts"));
