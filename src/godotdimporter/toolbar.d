@@ -5,8 +5,6 @@ import godotdimporter;
 import godot;
 import godot.control.all;
 
-alias OnInit = RAII;
-
 @Tool class DToolbar : GodotScript!HBoxContainer
 {
 	GodotDImporterPlugin plugin;
@@ -44,6 +42,7 @@ alias OnInit = RAII;
 				else
 				{
 					selectProject.addItem(String(p.recipe.name), pid);
+					selectProject.setItemMetadata(pid, Variant(p.path));
 					if(p.path == selected) id = pid;
 				}
 			}
