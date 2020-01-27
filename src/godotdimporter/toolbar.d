@@ -108,7 +108,6 @@ import godot.control.all;
 		// FIXME: output to D console, possibly one per build job
 		// FIXME: result.output loses its formatting
 		print(result.output);
-		writeln(result.output);
 		if(result.status == 0)
 		{
 			// TODO: update build status and cache hashes of the files from `dub describe`
