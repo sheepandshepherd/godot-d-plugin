@@ -3,8 +3,10 @@
 import godotdimporter.d;
 import godotdimporter.toolbar;
 import godotdimporter.settings;
+//import godotdimporter.project;
 
 import godot;
+import godot.util.path;
 import godot.editorplugin, godot.editorimportplugin;
 
 import godot.resourceloader;
@@ -28,14 +30,15 @@ mixin GodotNativeLibrary!(
 	Ref!ImportD d;
 	DToolbar toolbar;
 	DSettings settings;
+	//DProject project;
 
 	static struct Package
 	{
 		enum separator = Package.init;
 		/// is separator
-		bool empty() const { return path.length == 0; }
+		bool empty() const { return path.godot.length == 0; }
 
-		String path; /// res://-based path to DUB JSON/SDL
+		Path path; /// res://-based path to DUB JSON/SDL
 		PackageRecipe recipe; /// DUB recipe
 	}
 	/// DUB packages
@@ -63,7 +66,7 @@ mixin GodotNativeLibrary!(
 			shouldAddSeparator = true;
 
 			Package p;
-			p.path = ProjectSettings.localizePath(String(project));
+			p.path.d = project;
 			p.recipe = readPackageRecipe(project, null);
 			// TODO: does parent recipe name need to be handled here?
 			packages ~= p;
@@ -137,6 +140,12 @@ mixin GodotNativeLibrary!(
 			.as!PackedScene.instance().as!DSettings;
 		settings.settings = getEditorInterface().getEditorSettings();
 		addChild(settings.owner);
+
+		/+
+		project = ResourceLoader.load(gs!"res://addons/godot-d-importer/ui/DProject.tscn")
+			.as!PackedScene.instance().as!DProject;
+		addChild(project.owner);
+		+/
 	}
 
 	@Method _ready()

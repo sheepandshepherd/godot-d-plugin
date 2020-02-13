@@ -42,8 +42,8 @@ import godot.control.all;
 				else
 				{
 					selectProject.addItem(String(p.recipe.name), pid);
-					selectProject.setItemMetadata(pid, Variant(p.path));
-					if(p.path == selected) id = pid;
+					selectProject.setItemMetadata(pid, Variant(p.path.godot));
+					if(p.path.godot == selected) id = pid;
 				}
 			}
 			selected = selectProject.getItemMetadata(id).as!String;
@@ -95,20 +95,24 @@ import godot.control.all;
 		import std.string : join;
 		import std.path;
 		import godot.projectsettings;
+		import std.stdio : stdin, stdout, stderr;
 
 		string[] cmd = ["dub build"];
 
-		Config config = Config.none;
+		Redirect redir = Redirect.stdout | Redirect.stderr;
+		Config config = Config.suppressConsole;
 
 		CharString workDir = ProjectSettings.globalizePath(selected).utf8;
 		print("D: Building ", selected);
 
-		// FIXME: async with spawnShell and wait
-		auto result = executeShell(cmd.join(), null, config, size_t.max, workDir.data.dirName);
+		// FIXME: async - move `wait` elsewhere (or `tryWait`)
+		auto pid = spawnShell(cmd.join(" "), stdin, stdout, stderr, null, config, workDir.data.dirName);
+
+		int exitCode = wait(pid);
 		// FIXME: output to D console, possibly one per build job
-		// FIXME: result.output loses its formatting
-		print(result.output);
-		if(result.status == 0)
+		// FIXME: output loses its formatting. The compilers have flags for this.
+		//print(pipes.stdout.read());
+		if(exitCode == 0)
 		{
 			// TODO: update build status and cache hashes of the files from `dub describe`
 		}
