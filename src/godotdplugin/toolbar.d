@@ -1,13 +1,13 @@
-module godotdimporter.toolbar;
+module godotdplugin.toolbar;
 
-import godotdimporter;
+import godotdplugin;
 
 import godot;
 import godot.control.all;
 
 @Tool class DToolbar : GodotScript!HBoxContainer
 {
-	GodotDImporterPlugin plugin;
+	GodotDPlugin plugin;
 	@OnReady!"d" MenuButton d;
 	@OnReady!"selectProject" OptionButton selectProject;
 	@OnReady!"dubProject" Button dubProject;

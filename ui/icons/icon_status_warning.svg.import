@@ -9,7 +9,7 @@ metadata={
 
 [deps]
 
-source_file="res://addons/godot-d-importer/ui/icons/icon_status_warning.svg"
+source_file="res://addons/godot-d-plugin/ui/icons/icon_status_warning.svg"
 dest_files=[ "res://.import/icon_status_warning.svg-ab7948dd3fbc79c30230f825e8b67493.stex" ]
 
 [params]

@@ -1,10 +1,10 @@
 [gd_scene load_steps=3 format=2]
 
-[ext_resource path="res://addons/godot-d-importer/godot-d-importer.gdnlib" type="GDNativeLibrary" id=1]
+[ext_resource path="res://addons/godot-d-plugin/godot-d-plugin.gdnlib" type="GDNativeLibrary" id=1]
 
 [sub_resource type="NativeScript" id=1]
-resource_name = "godotdimporter.settings.DSettings"
-class_name = "godotdimporter.settings.DSettings"
+resource_name = "godotdplugin.settings.DSettings"
+class_name = "godotdplugin.settings.DSettings"
 library = ExtResource( 1 )
 
 [node name="DSettings" type="WindowDialog"]

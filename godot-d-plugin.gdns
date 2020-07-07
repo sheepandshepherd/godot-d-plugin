@@ -4,6 +4,6 @@
 
 [resource]
 
-class_name = "godotdplugin.d.ImportD"
+class_name = "godotdplugin.GodotDPlugin"
 library = ExtResource( 1 )
 

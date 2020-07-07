@@ -1,4 +1,4 @@
-﻿module godotdimporter.d;
+﻿module godotdplugin.d;
 
 import std.file, std.path;
 import std.string;

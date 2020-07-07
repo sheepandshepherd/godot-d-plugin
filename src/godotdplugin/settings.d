@@ -1,4 +1,4 @@
-module godotdimporter.settings;
+module godotdplugin.settings;
 
 import godot, godot.control.all;
 

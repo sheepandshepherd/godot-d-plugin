@@ -9,7 +9,7 @@ metadata={
 
 [deps]
 
-source_file="res://addons/godot-d-importer/ui/icons/icon_new.svg"
+source_file="res://addons/godot-d-plugin/ui/icons/icon_new.svg"
 dest_files=[ "res://.import/icon_new.svg-33bb5b7925c5ad44d9b7a34d974e931f.stex" ]
 
 [params]

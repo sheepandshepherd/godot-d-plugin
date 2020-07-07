@@ -1,0 +1,14 @@
+[general]
+
+singleton=false
+load_once=true
+reloadable=false
+symbol_prefix="godot_d_plugin"
+
+[entry]
+Windows="res://addons/godot-d-plugin/godot-d-plugin.dll"
+X11="res://addons/godot-d-plugin/libgodot-d-plugin.so"
+
+[dependencies]
+Windows=[]
+X11=[]

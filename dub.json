@@ -1,5 +1,5 @@
 {
-	"name": "godot-d-importer",
+	"name": "godot-d-plugin",
 	"authors": [
 		"sheepandshepherd"
 	],
@@ -11,7 +11,7 @@
 		"libdparse": "~>0.13.1",
 		"dub": "~>1.17.0"
 	},
-	"description": "Godot import plugin to simplify Godot-D scripting",
+	"description": "Godot editor plugin to simplify Godot-D scripting",
 	"copyright": "Copyright © 2018, sheepandshepherd",
 	"license": "MIT",
 	

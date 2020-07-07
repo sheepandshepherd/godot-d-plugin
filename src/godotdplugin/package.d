@@ -1,9 +1,9 @@
-﻿module godotdimporter;
+﻿module godotdplugin;
 
-import godotdimporter.d;
-import godotdimporter.toolbar;
-import godotdimporter.settings;
-//import godotdimporter.project;
+import godotdplugin.d;
+import godotdplugin.toolbar;
+import godotdplugin.settings;
+//import godotdplugin.project;
 
 import godot;
 import godot.util.path;
@@ -20,12 +20,12 @@ import containers.dynamicarray;
 import dub.recipe.packagerecipe;
 
 mixin GodotNativeLibrary!(
-	"godot_d_importer",
-	() => print("Initializing D importer"),
-	(GodotTerminateOptions o) => print("Terminating D importer"),
+	"godot_d_plugin",
+	() => print("Initializing D plugin"),
+	(GodotTerminateOptions o) => print("Terminating D plugin"),
 );
 
-@Tool class GodotDImporterPlugin : GodotScript!EditorPlugin
+@Tool class GodotDPlugin : GodotScript!EditorPlugin
 {
 	Ref!ImportD d;
 	DToolbar toolbar;
@@ -114,7 +114,7 @@ mixin GodotNativeLibrary!(
 		addSeparator();
 		foreach(de; dirEntries(rootUtf.data.buildPath("addons"), SpanMode.shallow))
 		{
-			if(de.isDir && de.name.baseName != "godot-d-importer")
+			if(de.isDir && de.name.baseName != "godot-d-plugin")
 			{
 				breadthFirst(de.name);
 			}
@@ -131,18 +131,18 @@ mixin GodotNativeLibrary!(
 
 		print("loading scene");
 
-		toolbar = ResourceLoader.load(gs!"res://addons/godot-d-importer/ui/DToolbar.tscn")
+		toolbar = ResourceLoader.load(gs!"res://addons/godot-d-plugin/ui/DToolbar.tscn")
 			.as!PackedScene.instance().as!DToolbar;
 		toolbar.plugin = this;
 		addControlToContainer(CustomControlContainer.containerToolbar, toolbar.owner);
 
-		settings = ResourceLoader.load(gs!"res://addons/godot-d-importer/ui/DSettings.tscn")
+		settings = ResourceLoader.load(gs!"res://addons/godot-d-plugin/ui/DSettings.tscn")
 			.as!PackedScene.instance().as!DSettings;
 		settings.settings = getEditorInterface().getEditorSettings();
 		addChild(settings.owner);
 
 		/+
-		project = ResourceLoader.load(gs!"res://addons/godot-d-importer/ui/DProject.tscn")
+		project = ResourceLoader.load(gs!"res://addons/godot-d-plugin/ui/DProject.tscn")
 			.as!PackedScene.instance().as!DProject;
 		addChild(project.owner);
 		+/
