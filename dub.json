@@ -15,7 +15,6 @@
 	"copyright": "Copyright © 2018, sheepandshepherd",
 	"license": "MIT",
 	
-	"dflags-windows-dmd": ["-defaultlib=phobos.lib"],
 	"dflags-linux-dmd": ["-defaultlib=libphobos2.a"],
 	"dflags-ldc": ["-link-defaultlib-shared=false"],
 	
